@@ -1,0 +1,9 @@
+controller:
+  host: 127.0.0.1
+  port: 8443
+  secure: true
+  user: unifi-exporter
+  password: ''
+warp10:
+  host: https://warp10.gra1.metrics.ovh.net
+  token: ''
