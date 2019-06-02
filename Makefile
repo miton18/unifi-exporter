@@ -19,6 +19,9 @@ release_dep:
 release:
 	goreleaser --skip-publish --rm-dist
 
+release-dev:
+	goreleaser --skip-publish --rm-dist --snapshot
+
 dep:
 	curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s v1.15.0
 

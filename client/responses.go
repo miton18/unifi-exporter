@@ -31,17 +31,21 @@ type (
 	}
 
 	Sta struct {
-		BytesRxLan      int64  `json:"rx_bytes"`
-		BytesTxLan      int64  `json:"tx_bytes"`
-		BytesRxRetryLan int64  `json:"rx_bytes-r"`
-		BytesTxRetryLan int64  `json:"tx_bytes-r"`
-		BytesRxWan      int64  `json:"wired-rx_bytes"`
-		BytesTxWan      int64  `json:"wired-tx_bytes"`
-		BytesTxRetryWan int64  `json:"wired-tx_bytes-r"`
-		BytesRxRetryWan int64  `json:"wired-rx_bytes-r"`
-		MAC             string `json:"mac"`
-		Hostname        string `json:"hostname"`
-		Name            string `json:"name"`
-		OUI             string `json:"oui"`
+		Anomalies  int64 `json:"anomalies"`
+		BytesRxLan int64 `json:"rx_bytes"`
+		BytesTxLan int64 `json:"tx_bytes"`
+		BytesRetry int64 `json:"bytes-r"`
+		//BytesTxRetryLan int64  `json:"tx_bytes-r"`
+		//BytesTxRetryLan int64  `json:"tx_bytes-r"`
+		//BytesRxWan      int64  `json:"wired-rx_bytes"`
+		//BytesTxWan      int64  `json:"wired-tx_bytes"`
+		//BytesTxRetryWan int64  `json:"wired-tx_bytes-r"`
+		//BytesRxRetryWan int64  `json:"wired-rx_bytes-r"`
+		MAC          string `json:"mac"`
+		Hostname     string `json:"hostname"`
+		Name         string `json:"name"`
+		OUI          string `json:"oui"`
+		Satisfaction int64  `json:"satisfaction"`
+		IsWired      bool   `json:"is_wired"`
 	}
 )
