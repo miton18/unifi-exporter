@@ -4,7 +4,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/apex/log"
+	log "github.com/sirupsen/logrus"
 )
 
 var (

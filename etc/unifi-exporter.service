@@ -1,0 +1,18 @@
+[Unit]
+Description=unifi-exporter
+Requires=network.target
+After=network.target
+
+[Service]
+Restart=on-failure
+RestartSec=5s
+Type=simple
+TimeoutSec=1min
+KillMode=process
+NotifyAccess=all
+ExecStart=/opt/unifi_exporter/bin/unifi_exporter \
+  --config /opt/unifi_exporter/etc/config.yml \
+  -v
+
+[Install]
+WantedBy=multi-user.target

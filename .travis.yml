@@ -15,12 +15,21 @@ script:
 - make format
 before_deploy:
 - make release_dep
+- git reset --hard # go.sum is edited during build
+- rm ./unifi-exporter
 - make release
+#- "export CHANGELOG_BODY=`cat ./dist/CHANGELOG.md | tail -n+3`"
 deploy:
   provider: releases
+  draft: true
+  #name: ${TRAVIS_TAG}
+  #body: ${CHANGELOG_BODY}
+  skip_cleanup: true
   api_key:
     secure: tOH2+iys21T566NBKkN6kY0yv7pe+8+TNxi3vYopbq1xx1D6Xy9dzG1VKZRVxf8cP59fhYQdu7j2BqMJ8rdrtvSMYTgUZR7nsDo0Bn50mwcaWyTPXPwHe2aeueWaf2oasYoWzZ8VyeHEcN4EsBbYDEnMlNOj2uI8cea0F7grUCEapikEy9nfSBvYV02/J9HC0XNLQeT/Zq3SXLrYk1BnfGM0p4BMVaTID2ZL/RL9c428Uw+Y0DoOxeFB66FGIJxtZzMYv1QgrIMXXKOZfOy9JV9Bosiow49SPXaopUlh4CAD1WUib/FQ49oweieouj9MiGHvniGGL5ktgmvH9sWWuH5IZzcVFYxYtXZoMWMyjugzep+ip5dEKYKoNBISsnRq+/j0bqythAC2r1CBpDVXer6JOMZDqB+VukZN441Fk01KcOsSt5a9DbnYkDLrLTArSa/ds9GhwOxSNQHdXbSP0nryPS7wCd8NzVFLSnw+lzlkkCGcqaMi3qt91uF169F+exTV/yzwuG6cFvR6fpqKV/8xkNOkniTkmP2duZMbSEdzBDfNn57wwYDxIFQlYhmjybxiGyH3EZyp9jf/CHLgiGSKEyIq4vbTsMZAN0zaSy5zdqG+RhpW8bnOdWUbYFzxLs8CIjCdtB9aQYeKMd37mZA/uN2hWNtw4N3anMIz3YI=
-  file: "./dist/unifi_exporter*"
+  overwrite: true
+  file_glob: true
+  file: ./dist/unifi*
   on:
     repo: miton18/unifi-exporter
     branch: master

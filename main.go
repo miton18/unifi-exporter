@@ -82,21 +82,18 @@ func rootFn(cmd *cobra.Command, args []string) {
 
 		err := client.Connect()
 		if err != nil {
-			log.WithError(err).Error("cannot join Unifi controller")
+			log.WithError(err).Fatal("cannot join Unifi controller")
 		}
 
 		for {
-			select {
-			case <-t.C:
-				metrics, err := scrappe(client, whitelist)
-				if err != nil {
-					log.WithError(err).Error("cannot scrape unifi controller metrics")
-					continue
-				}
-
-				fmt.Println(metrics.Get().Sensision())
-				flush(wClient, metrics)
+			<-t.C
+			metrics, err := scrappe(client, whitelist)
+			if err != nil {
+				log.WithError(err).Fatal("cannot scrape unifi controller metrics")
 			}
+
+			fmt.Println(metrics.Get().Sensision())
+			flush(wClient, metrics)
 		}
 	}()
 
@@ -117,4 +114,10 @@ func flush(wClient *base.Client, metrics instrumentation.Metrics) {
 	if err != nil {
 		log.WithError(err).Error("cannot send metrics to Warp10")
 	}
+
+	res, err := wClient.Meta(metrics.Get())
+	if err != nil {
+		log.WithError(err).Error("cannot meta metrics to Warp10")
+	}
+	log.Infof("META: %s", string(res))
 }

@@ -1,20 +1,6 @@
 package main
 
-import (
-	"bytes"
-	"encoding/json"
-	"fmt"
-	"text/template"
-	"time"
-
-	"github.com/miton18/unifi-exporter/scheduler"
-
-	"github.com/miton18/go-warp10/base"
-	"github.com/miton18/unifi-exporter/client"
-	log "github.com/sirupsen/logrus"
-)
-
-func StartTasks(c *client.Client, wc *base.Client) {
+/*func StartTasks(c *client.Client, wc *base.Client) {
 	fmt.Println(fmt.Sprintf("%+v", wc))
 	scheduler.ScheduleTask(scheduler.Task{
 		Name:            "Flush sites names as meta",
@@ -67,4 +53,4 @@ func StartTasks(c *client.Client, wc *base.Client) {
 		},
 	})
 
-}
+}*/

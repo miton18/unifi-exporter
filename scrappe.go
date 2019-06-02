@@ -109,6 +109,55 @@ func scrappe(client *client.Client, siteWhitelist []string) (instrumentation.Met
 				metrics = append(metrics, clients)
 			}
 		}
+
+		stas, err := client.Sta(site.Name)
+		if err != nil {
+			return nil, errors.Wrap(err, "cannot get clients stats")
+		}
+
+		for _, sta := range stas {
+			clientBytesRx := instrumentation.NewGauge("unifi.client.bytes.rx", base.Labels{
+				"siteId":   site.ID,
+				"mac":      sta.MAC,
+				"hostname": sta.Hostname,
+				"name":     sta.Name,
+				"oui":      sta.OUI,
+			}, "Client bytes received")
+			clientBytesRx.Set(uint64(sta.BytesRxLan))
+			metrics = append(metrics, clientBytesRx)
+
+			clientBytesS := instrumentation.NewGauge("unifi.client.bytes.tx", base.Labels{
+				"siteId":   site.ID,
+				"mac":      sta.MAC,
+				"hostname": sta.Hostname,
+				"name":     sta.Name,
+				"oui":      sta.OUI,
+			}, "Client bytes sent")
+			clientBytesS.Set(uint64(sta.BytesTxLan))
+			metrics = append(metrics, clientBytesS)
+
+			clientBytesR := instrumentation.NewGauge("unifi.client.bytes.retry", base.Labels{
+				"siteId":   site.ID,
+				"mac":      sta.MAC,
+				"hostname": sta.Hostname,
+				"name":     sta.Name,
+				"oui":      sta.OUI,
+			}, "Client bytes retry")
+			clientBytesR.Set(uint64(sta.BytesRetry))
+			metrics = append(metrics, clientBytesR)
+
+			if !sta.IsWired {
+				clientBytesSat := instrumentation.NewGauge("unifi.client.satisfaction", base.Labels{
+					"siteId":   site.ID,
+					"mac":      sta.MAC,
+					"hostname": sta.Hostname,
+					"name":     sta.Name,
+					"oui":      sta.OUI,
+				}, "Client satisfaction")
+				clientBytesSat.Set(uint64(sta.Satisfaction))
+				metrics = append(metrics, clientBytesSat)
+			}
+		}
 	}
 
 	return metrics, nil
