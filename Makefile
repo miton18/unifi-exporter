@@ -17,7 +17,7 @@ release_dep:
 	go get -u github.com/goreleaser/goreleaser
 
 release:
-	goreleaser --skip-publish --rm-dist
+	goreleaser
 
 release-dev:
 	goreleaser --skip-publish --rm-dist --snapshot

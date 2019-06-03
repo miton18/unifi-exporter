@@ -112,7 +112,7 @@ func rootFn(cmd *cobra.Command, args []string) {
 func flush(wClient *base.Client, metrics instrumentation.Metrics) {
 	err := wClient.Update(metrics.Get())
 	if err != nil {
-		log.WithError(err).Error("cannot send metrics to Warp10")
+		log.WithError(err).Fatal("cannot send metrics to Warp10")
 	}
 
 	res, err := wClient.Meta(metrics.Get())

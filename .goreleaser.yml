@@ -24,6 +24,30 @@ archive:
   files:
   - ./config_sample.yml
 
+nfpms:
+-
+  id: unifi-exporter
+  maintainer: Rémi Collignon<rcd18@hotmail.fr>
+  homepage: https://github.com/miton18/unifi-exporter
+  description: Export metrics from your Unifi controller
+  license: MIT
+  formats:
+  - deb
+  #- rpm
+  suggests:
+  - unifi
+  empty_folders:
+  - /etc/unifi-exporter
+  config_files:
+    "config_sample.yml": /etc/unifi-exporter/config.yml
+  files:
+    "etc/unifi-exporter.service": "/lib/systemd/system/unifi-exporter.service"
+  scripts:
+      preinstall: "deb/scripts/preinstall.sh"
+      postinstall: "deb/scripts/postinstall.sh"
+      preremove: "deb/scripts/preremove.sh"
+      postremove: "deb/scripts/postremove.sh"
+
 checksum:
   name_template: 'checksums.txt'
 

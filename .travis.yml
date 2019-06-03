@@ -15,9 +15,9 @@ script:
 - make format
 before_deploy:
 - make release_dep
-- git reset --hard # go.sum is edited during build
-- rm ./unifi-exporter
 - make release
+- rm ./unifi-exporter
+- git reset --hard # go.sum is edited during build
 #- "export CHANGELOG_BODY=`cat ./dist/CHANGELOG.md | tail -n+3`"
 deploy:
   provider: releases

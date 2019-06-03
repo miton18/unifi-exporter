@@ -10,8 +10,8 @@ Type=simple
 TimeoutSec=1min
 KillMode=process
 NotifyAccess=all
-ExecStart=/opt/unifi_exporter/bin/unifi_exporter \
-  --config /opt/unifi_exporter/etc/config.yml \
+ExecStart=/usr/bin/unifi_exporter \
+  --config /etc/unifi-exporter/config.yml \
   -v
 
 [Install]
