@@ -55,9 +55,10 @@ func New(user, pass, host string, port int, httpClient *http.Client, secure bool
 
 // Connect Unifi client
 func (c *Client) Connect() error {
-	b, err := json.Marshal(map[string]string{
+	b, err := json.Marshal(map[string]interface{}{
 		"username": c.user,
 		"password": c.pass,
+		"remember": true,
 	})
 	if err != nil {
 		return err
